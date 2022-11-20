@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 const Results = ({polls, setPolls, pollSelected, handleVote, chartCon, setChartCon}) => {
 
-
+  console.log(pollSelected.id)
+    console.log(pollSelected.voted)
   return (
     <div id='poll-results'>
         <h1 className='mb-5'>{pollSelected.question}</h1>

@@ -1,0 +1,68 @@
+{
+  "polls": [
+    {
+      "id": 1,
+      "question": "Who are you?",
+      "image": "https://www.thepositivepsychologypeople.com/wp-content/uploads/2015/09/Clouds.jpg",
+      "results": [
+        5,
+        0,
+        2
+      ],
+      "options": [
+        "Wail",
+        "Mohamed",
+        "No one"
+      ],
+      "voted": true
+    },
+    {
+      "id": 2,
+      "question": "This app worked ?",
+      "image": "https://i.ytimg.com/vi/HGgXP05uHp8/maxresdefault.jpg",
+      "results": [
+        3,
+        4,
+        1
+      ],
+      "options": [
+        "Yes",
+        "No",
+        "Almost"
+      ],
+      "voted": true
+    },
+    {
+      "id": 3,
+      "question": "Worked ? ",
+      "image": "https://i.ytimg.com/vi/9FxmJ01Stjg/maxresdefault.jpg",
+      "results": [
+        0,
+        0,
+        0
+      ],
+      "options": [
+        "Yes",
+        "No",
+        "Almost"
+      ],
+      "voted": false
+    },
+    {
+      "id": 4,
+      "question": "piwwa",
+      "image": "https://i.ytimg.com/vi/9FxmJ01Stjg/maxresdefault.jpg",
+      "results": [
+        1,
+        0,
+        0
+      ],
+      "options": [
+        "oui",
+        "No",
+        "Almost"
+      ],
+      "voted": true
+    }
+  ]
+}
