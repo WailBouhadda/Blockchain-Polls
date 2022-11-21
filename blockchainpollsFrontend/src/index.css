@@ -11,7 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.App{
+  max-height: 100%;
+}
 
+#root{
+  height: 100vh;
+}
 .poll-img{
     max-height: 200px;
     width: 100%;
@@ -28,5 +34,18 @@ code {
 
 #poll-results{
   width: 100%;
-  height: fit-content;
+  max-height: 100%;
+  min-height: 100%;
+}
+
+.form-check{
+
+  width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+}
+
+.content{
+  max-height: 680px;
+  min-height: 240px;
 }

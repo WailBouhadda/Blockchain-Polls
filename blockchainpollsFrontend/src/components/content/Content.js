@@ -5,7 +5,7 @@ import '../../index.css'
 const Content = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelected, handleVote,  chartCon, setChartCon, isLoading, setIsLoading, voter, setVoter}) => {
   
   return (
-    <div className='d-flex mt-5'>
+    <div className='content p-4 d-flex mt-1'>
         <Pollslist 
           polls = {polls}
           setPolls = {setPolls}

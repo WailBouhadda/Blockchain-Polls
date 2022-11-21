@@ -19,7 +19,7 @@ const Addpoll = ({newPoll, setNewPoll, handleSubmit}) => {
         <div className='mb-3 row'>
             <label htmlFor="image" className='col-sm-2 col-form-label'>Image :</label>
             <div className='col-sm-10'>
-            <input type="text" className='form-control' id="image" placeholder='Img url' required
+            <input type="text" className='form-control' id="image" placeholder='Img url'
                 value={newPoll.image}
                 onChange={(e) => setNewPoll(newPoll => ({...newPoll,image: e.target.value}))}
             />

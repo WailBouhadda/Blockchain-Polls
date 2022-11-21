@@ -7,7 +7,7 @@ const Head = ({newPoll, setNewPoll, handleSubmit}) => {
     const [show, setShow] = useState(false);
     return (
         <header className='mb-5'>
-            <nav className='navbar bg-dark'>
+            <nav className='navbar bg-dark shadow-lg'>
                 <div className='container-fluid'>
                     <a className='navbar-brand text-light' href="#">
                         Poll System

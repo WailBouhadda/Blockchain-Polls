@@ -8,12 +8,12 @@ const Results = ({polls, setPolls, pollSelected, handleVote, chartCon, setChartC
     console.log(pollSelected.voted)
   return (
     <div id='poll-results'>
-        <h1 className='mb-5'>{pollSelected.question}</h1>
+        <h1 className='mb-1 ms-4'>{pollSelected.question}</h1>
         <Chart
               options={chartCon.options}
               series={chartCon.series}
               type="bar"
-              width="80%"
+              height="90%"
             />
     </div>
   )

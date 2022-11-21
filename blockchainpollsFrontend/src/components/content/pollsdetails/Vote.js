@@ -9,7 +9,7 @@ function Vote({polls, setPolls, pollSelected, handleVote}) {
     console.log(pollSelected.voted)
   return (
     <form className='form-check' onSubmit={(e) => (handleVote(e,pollSelected.id))}>  
-        <h1 className='mb-5' >{pollSelected.question}</h1>
+        <h1 className='mb-1 ms-4' >{pollSelected.question}</h1>
         {pollSelected.options.map(option => 
         (
             <div className='form-check m-2' onChange={enableButton} key={pollSelected.options.indexOf(option)}>

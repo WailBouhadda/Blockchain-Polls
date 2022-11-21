@@ -8,7 +8,7 @@ const Pollsdetails = ({polls, setPolls, handleSelectPoll, pollSelected, handleVo
 
 
     return (
-    <div className='container pollsDetails'>
+    <div className='container h-100 ml-4'>
       {pollSelected ? 
         (
           

@@ -275,7 +275,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App d-flex flex-column h-100">
       <Head 
         newPoll={newPoll}
         setNewPoll={setNewPoll}
