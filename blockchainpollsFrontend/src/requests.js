@@ -10,5 +10,10 @@ const requests = async (url = '', optionsObj = null, errMsg = null) => {
     }
 }
 
+const getPolls = () => {
+
+    return
+}
+
 
 export default requests;

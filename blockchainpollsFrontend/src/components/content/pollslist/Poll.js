@@ -1,10 +1,11 @@
 import React from 'react'
 
-const Poll = ({polls, poll, handleSelectPoll, pollSelected, setPollSelected}) => {
-    const index = polls.findIndex(po => {return po.id === poll.id});
+const Poll = ({polls, poll, handleSelectPoll, voter, setVoter}) => {
+
+    
   return (
     
-    <div className='card mb-4' onClick={() => handleSelectPoll(polls[index].id)}>
+    <div className='card mb-4' onClick={() => handleSelectPoll(polls[poll.id].id)}>
         <div className='poll-img'>
             <img className='img-fluid' src={poll.image} />
         </div>
@@ -13,8 +14,8 @@ const Poll = ({polls, poll, handleSelectPoll, pollSelected, setPollSelected}) =>
                 {poll.question}
             </p>
             <div className='d-flex justify-content-between'>
-                <small className='text-muted'> Votes : {polls[index].results.reduce((accumulator, value) => {return accumulator + value; }, 0)}</small>
-                {polls[index].voted && <small className='badge bg-success'>Voted</small>}
+                <small className='text-muted'> Votes : {polls[poll.id].results.reduce((accumulator, value) => {return accumulator + value; }, 0)}</small>
+                {voter.votedPolls !== undefined && voter.votedPolls.length && voter.votedPolls.find(votedId => votedId === poll.id) !== undefined && <small className='badge bg-success'>Voted</small>}
             </div>
         </div>
     </div>

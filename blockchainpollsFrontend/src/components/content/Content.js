@@ -2,7 +2,7 @@ import React from 'react'
 import Pollslist from './pollslist/Pollslist'
 import Pollsdetails from './pollsdetails/Pollsdetails'
 import '../../index.css'
-const Content = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelected, handleVote,  chartCon, setChartCon, isLoading, setIsLoading}) => {
+const Content = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelected, handleVote,  chartCon, setChartCon, isLoading, setIsLoading, voter, setVoter}) => {
   
   return (
     <div className='d-flex mt-5'>
@@ -14,6 +14,8 @@ const Content = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelect
           setIsLoading={setIsLoading}
           pollSelected={pollSelected}
           setPollSelected={setPollSelected}
+          voter={voter}
+          setVoter={setVoter}
        
         />
         <Pollsdetails 
@@ -24,6 +26,8 @@ const Content = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelect
           handleVote={handleVote}
           chartCon={chartCon}
           setChartCon={setChartCon}
+          voter={voter}
+          setVoter={setVoter}
         />
     </div>
   )

@@ -4,17 +4,28 @@ import Content from './components/content/Content';
 import './css/bootstrap.min.css'
 import { useState, useEffect } from 'react';
 import requests from './requests';
+import Web3 from 'web3';
+import { init, call, executeTransaction, selectedaccount } from './Blockchain/web3Client';
+import { creatPoll, vote, getPolls, normalizePoll, normalizeVoter } from './pollService';
 
 function App() {
 
 
+  useEffect(() => {
+    init();
+  }, [])
 
 
-  const API_URL = 'http://localhost:3500/polls';
+
+  /*####### */
+
+
+  const [voter, setVoter] = useState({});
+
   const [fetchErr, setFetchErr] = useState(null);
 
   const [polls, setPolls] = useState([]);
-  const [pollSelected, setPollSelected] = useState()
+  const [pollSelected, setPollSelected] = useState();
 
   const [isLoading, setIsLoading] = useState(true);
   
@@ -26,7 +37,6 @@ function App() {
     results : [0,0,0],
     options : ['','','']
   });
-
 
 
   /** ###########   Chart state ############## */
@@ -74,6 +84,25 @@ function App() {
     /** ###########   Chart state ############## */
 
 
+    useEffect(() => {
+
+      const fetchvoters = async () => {
+        try{
+            let voter = await call("getVoter", selectedaccount);
+            const voterNormalized = normalizeVoter(voter);
+            setVoter(voterNormalized);
+            setFetchErr(null);
+          
+        }catch(err){
+            setFetchErr(err.message);
+        }finally{
+            setIsLoading(false);
+        }
+      }
+      fetchvoters();
+      
+    }, [])
+  
      /** ###########   Polls state ############## */
 
    /** ###########   Polls state ############## */
@@ -82,11 +111,21 @@ function App() {
 
       const fetchpolls = async () => {
         try{
-            const response = await fetch(API_URL);
-            if(!response.ok) throw Error('Did not recieve the data ');
-            const listPolls = await response.json();
-            setPolls(listPolls);
+            
+            let totalPolls = await call("getTotalPolls");
+            let voter = await call("getVoter", selectedaccount);
+            let pollsList = [];
+            for(let i = 0; i < totalPolls; i++){
+              let poll = await call("getPoll", i);
+              const pollnormalized = normalizePoll(poll);
+              pollsList.push(pollnormalized);
+              
+            }
+            const voterNormalized = normalizeVoter(voter);
+            setVoter(voterNormalized);
+            setPolls(pollsList);
             setFetchErr(null);
+
         }catch(err){
           setFetchErr(err.message);
         }finally{
@@ -94,11 +133,7 @@ function App() {
         }
 
       }
-
-      setTimeout(() => {
         fetchpolls();
-      }, 1000)
-
       
     }, [])
 
@@ -113,19 +148,10 @@ function App() {
 
     const id = polls.length ? polls[polls.length - 1].id + 1 : 1;
     const myNewPoll = {id, question: poll.question, image: poll.image, results: poll.results, options: poll.options, voted: false};
-
+    creatPoll(myNewPoll);
     const listPolls = [...polls, myNewPoll];
     setPolls(listPolls);
 
-    const postPoll = {
-      method: 'POST',
-      headers:{
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(myNewPoll)
-    }
-    const result = await requests(API_URL, postPoll);
-    if (result) setFetchErr(result);
   }
 
   const handleSubmit = (e) => {
@@ -138,8 +164,7 @@ function App() {
                     question : '',
                     image : '',
                     results : [0,0,0],
-                    options : ['','',''],
-                    voted : false  
+                    options : ['','',''] 
                     }));
   }
 
@@ -153,7 +178,7 @@ function App() {
   const handleSelectPoll = (id) => {
 
     const poll = polls.find(poll => poll.id === id);
-    const selected = {id: id, question: poll.question, image: poll.image, results: poll.results, options: poll.options, voted: poll.voted};
+    const selected = {id: id, question: poll.question, image: poll.image, results: poll.results, options: poll.options};
 
     const newChart = {
                         series: [{
@@ -201,38 +226,51 @@ function App() {
 
   const handleVote =  (e) => {
     
+    e.preventDefault();
     [].forEach.call(e.target.elements, async function(ele) {
         if (ele.checked) {
-          const index = polls.findIndex(poll => {
-            return poll.id === pollSelected.id;
-          });
+          vote(pollSelected.id, parseInt(ele.value));
+
           const Upolls = [...polls];
           const Uselected ={...pollSelected};
+          const Uvoter = {...voter};
+          Uvoter.votedPolls.push(pollSelected.id);
 
-          Upolls[index].results[ele.value] += 1;
-          Upolls[index].voted = true;
-
-          Uselected.voted = true;
+          Upolls[pollSelected.id].results[ele.value] += 1;
+          setVoter(Uvoter);
           setPollSelected(Uselected);
           setPolls(Upolls);
-          
+       /*    
         const updatePoll = {
           method: 'PATCH',
           headers:{
             'Content-type': 'application/json'
           },
-          body: JSON.stringify(Upolls[index])
+          body: JSON.stringify(Upolls[pollSelected.id])
         }
   
-        const updateURL = `${API_URL}/${Upolls[index].id}`;
+        const updateURL = `${API_URL}/${pollSelected.id}`;
   
         const result = await requests(updateURL, updatePoll);
         if (result) setFetchErr(result);
 
+
+        const updateVoter = {
+          method: 'PATCH',
+          headers:{
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(Uvoter)
+        }
+  
+        const updateURLV = `${API_URLV}/${voter.id}`;
+  
+        const result1 = await requests(updateURLV, updateVoter);
+        if (result1) setFetchErr(result1);
+ */
         }
 
       });
-      e.preventDefault();
 
   }
 
@@ -256,6 +294,8 @@ function App() {
         setChartCon={setChartCon}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        voter={voter}
+        setVoter={setVoter}
       />
       }
     </div>

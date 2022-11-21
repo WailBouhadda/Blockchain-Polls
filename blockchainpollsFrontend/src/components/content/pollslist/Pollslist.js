@@ -3,7 +3,7 @@ import { NavItem } from 'react-bootstrap'
 import Poll from './Poll'
 
 
-const Pollslist = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelected, isLoading}) => {
+const Pollslist = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSelected, isLoading, voter, setVoter}) => {
   return (
       <div className='container  w-50'>
         {isLoading && <p>Is Loading ...</p>}
@@ -16,6 +16,8 @@ const Pollslist = ({polls, setPolls, handleSelectPoll, pollSelected, setPollSele
               handleSelectPoll={handleSelectPoll}
               pollSelected={pollSelected}
               setPollSelected={setPollSelected}
+              voter={voter}
+              setVoter={setVoter}
 
           />
 

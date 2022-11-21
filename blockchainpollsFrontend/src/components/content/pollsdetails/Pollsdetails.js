@@ -4,30 +4,34 @@ import Results from './Results'
 import { useState } from 'react'
 
 
-const Pollsdetails = ({polls, setPolls, handleSelectPoll, pollSelected, handleVote, chartCon, setChartCon}) => {
+const Pollsdetails = ({polls, setPolls, handleSelectPoll, pollSelected, handleVote, chartCon, setChartCon, voter, setVoter}) => {
+
 
     return (
     <div className='container pollsDetails'>
       {pollSelected ? 
         (
-          pollSelected.voted === false ? 
+          
+          voter.votedPolls !== undefined && voter.votedPolls.length && voter.votedPolls.find(votedId => votedId === pollSelected.id) !== undefined ? 
           (
             
-            <Vote
-              polls = {polls}
-              setPolls = {setPolls}
-              pollSelected={pollSelected}
-              handleVote={handleVote}
-            />
-          ):(
             <Results 
-              polls = {polls}
-              setPolls = {setPolls}
-              pollSelected={pollSelected}
-              handleVote={handleVote}
-              chartCon={chartCon}
-              setChartCon={setChartCon}
-            />
+            polls = {polls}
+            setPolls = {setPolls}
+            pollSelected={pollSelected}
+            handleVote={handleVote}
+            chartCon={chartCon}
+            setChartCon={setChartCon}
+          />
+        
+          ):(
+            <Vote
+            polls = {polls}
+            setPolls = {setPolls}
+            pollSelected={pollSelected}
+            handleVote={handleVote}
+            
+          />
           )
         ):(
           null
