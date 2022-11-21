@@ -8,7 +8,7 @@ let isInitialzed = false;
 
 export const init = async () => {
 
-    const contractAdrees = "0x5C7FAf8b21ab2afEeFc7327f910eE560750949c2";
+    const contractAdrees = "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab";
     
 
     let provider = window.ethereum;
